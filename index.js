@@ -1,29 +1,29 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Récupère tous les éléments <li> de la grille
+    // Retrieves all <li> elements in the grid
     const gridItems = document.querySelectorAll('.grid li');
 
-    // Crée une instance de Color Thief
+    // Creates an instance of Color Thief
     const colorThief = new ColorThief();
 
-    // Vérifie que l'image est chargée avant d'appliquer la couleur
+    // Checks that the image is loaded before applying the colour
     gridItems.forEach(function (item) {
       const img = item.querySelector('img');
 
       img.onload = function () {
-        // Trouve la couleur dominante sous forme de tableau [R, G, B]
+        // Find the dominant colour in table form [R, G, B].
         const dominantColor = colorThief.getColor(img);
 
-        // Convertit en chaîne `rgb()`
+        // Convert to `rgb()` string
         const rgbColor = `rgb(${dominantColor.join(',')})`;
 
-        // Trouve et applique la couleur à .curtain
+        // Find and apply the colour to .curtain
         const curtain = item.querySelector('.curtain');
         if (curtain) {
           curtain.style.background = rgbColor;
         }
       };
 
-      // Pour les images déjà chargées dans le cache (au cas où)
+      // For images already loaded in the cache (just in case)
       if (img.complete) {
         img.onload();
       }
@@ -31,24 +31,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const figures = document.querySelectorAll('figure');
 
-    // Fonction appelée lorsque l'élément entre dans le viewport
+    // Function called when the element enters the viewport
     const callback = function (entries, observer) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Ajoute la classe fade-in pour lancer l'animation
+          // Adds the fade-in class to launch the animation
           entry.target.classList.add('fade-in');
-          // Arrête d'observer cet élément car l'animation est déjà lancée
+          // Stop looking at this element because the animation has already started
           observer.unobserve(entry.target);
         }
       });
     };
 
-    // Crée un nouvel observateur
+    // Create a new viewer
     const observer = new IntersectionObserver(callback, {
-      threshold: 0.5 // Lance l'animation lorsque 10% de l'élément est visible
+      threshold: 0.5 // Starts the animation when 10% of the element is visible
     });
 
-    // Commence l'observation sur chaque <figure>
+    // Begins observation on each <figure>.
     figures.forEach(figure => {
       observer.observe(figure);
     });
