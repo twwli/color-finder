@@ -25,6 +25,7 @@
   .grid li {
     list-style: none;
     width: 25vw;
+    min-width: 350px;
     margin: 4vw auto;
   }
   
