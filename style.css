@@ -33,6 +33,10 @@
     display: block;
     position: relative;
   }
+
+  .grid li figure {
+    opacity: 0;
+  }
   
   .caption,
   .curtain {
@@ -64,5 +68,22 @@
     background: #eee;
     z-index: -1;
   }
+
+  /* Animation fade-in */
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Classe fade-in avec un délai */
+  .fade-in {
+    animation: fadeIn 1s ease forwards;
+    opacity: 0; /* L'élément commence invisible */
+  }
+  
   
   

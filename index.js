@@ -28,4 +28,28 @@ document.addEventListener('DOMContentLoaded', function () {
         img.onload();
       }
     });
-});
+
+    const figures = document.querySelectorAll('figure');
+
+    // Fonction appelée lorsque l'élément entre dans le viewport
+    const callback = function (entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Ajoute la classe fade-in pour lancer l'animation
+          entry.target.classList.add('fade-in');
+          // Arrête d'observer cet élément car l'animation est déjà lancée
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    // Crée un nouvel observateur
+    const observer = new IntersectionObserver(callback, {
+      threshold: 0.5 // Lance l'animation lorsque 10% de l'élément est visible
+    });
+
+    // Commence l'observation sur chaque <figure>
+    figures.forEach(figure => {
+      observer.observe(figure);
+    });
+  });
